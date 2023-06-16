@@ -1,19 +1,14 @@
 package com.example.artspace
 
 import android.os.Bundle
-import android.provider.Settings.Global.getString
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -24,23 +19,15 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.artspace.ui.theme.ArtSpaceTheme
 
 class MainActivity : ComponentActivity() {
@@ -52,7 +39,6 @@ class MainActivity : ComponentActivity() {
                 Surface(
                     modifier = Modifier
                         .fillMaxSize(),
-//                        .background(Color.DarkGray),
                     color = MaterialTheme.colorScheme.background
                 ) {
                     Screen()
@@ -66,17 +52,15 @@ class MainActivity : ComponentActivity() {
 fun ButtonRow(modifier: Modifier = Modifier) {
     Row(
         modifier = Modifier
-//            .width(IntrinsicSize.Max)
-            .background(Color.Red)
-            .fillMaxWidth()
-        ,
+            .padding(8.dp)
+            .fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween,
     ) {
         Button(
             onClick = { /*TODO*/ },
             modifier = Modifier
                 .width(120.dp),
-            shape = RoundedCornerShape(8.dp),
+            shape = RoundedCornerShape(40.dp),
         ) {
             Text(
                 text = "Previous",
@@ -87,7 +71,7 @@ fun ButtonRow(modifier: Modifier = Modifier) {
             onClick = { /*TODO*/ },
             modifier = Modifier
                 .width(120.dp),
-            shape = RoundedCornerShape(8.dp),
+            shape = RoundedCornerShape(40.dp),
         ) {
             Text(
                 text = "Next",
@@ -101,11 +85,14 @@ fun ButtonRow(modifier: Modifier = Modifier) {
 fun InfoRow(modifier: Modifier = Modifier) {
     Row(
         modifier = Modifier
-            .background(color = Color.Gray)
-            .width(IntrinsicSize.Max)
+            .background(color=Color(0xFFEEEAEA))
+            .fillMaxWidth()
+            .padding(8.dp)
 
     ) {
         Column(
+            modifier = Modifier
+                .width(IntrinsicSize.Max)
         ) {
             // TODO: https://developer.android.com/jetpack/compose/resources
             // embed multiple string resources
@@ -124,17 +111,20 @@ fun ImageRow(modifier: Modifier = Modifier) {
     Surface(
         modifier = Modifier
             .background(color=Color.Transparent)
+            .fillMaxWidth()
+            .height(300.dp)
             .clip(RoundedCornerShape(8.dp)),
-        shadowElevation = 8.dp,
-        tonalElevation = 8.dp,
+        color = Color.Transparent,
+        shadowElevation = 4.dp,
+        tonalElevation = 4.dp,
 
         ) {
         Image(
             painter = image,
             contentDescription = contentDescription,
+            contentScale = ContentScale.Fit,
             modifier = Modifier
-                .background(color=Color.Transparent)
-                .padding(2.dp)
+                .padding(8.dp)
                 .clip(RoundedCornerShape(8.dp)),
         )
     }
@@ -144,15 +134,11 @@ fun Screen(modifier: Modifier = Modifier) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .width(IntrinsicSize.Max)
-            .background(Color.LightGray)
             .padding(8.dp),
         verticalArrangement = Arrangement.SpaceEvenly,
     ) {
         ImageRow()
-        Spacer(modifier = Modifier.height(16.dp))
         InfoRow()
-        Spacer(modifier = Modifier.height(16.dp))
         ButtonRow()
     }
 }
