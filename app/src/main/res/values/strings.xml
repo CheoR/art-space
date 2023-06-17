@@ -1,8 +1,18 @@
 <resources>
     <string name="app_name">Art Space</string>
-    <string name="title">Working Dog</string>
-    <string name="artist_and_year">%1$s (%2$d)</string>
-    <string name="artist">Loaf</string>
-    <string name="year">2022</string>
-    <string name="image_description">Loaf with headphones</string>
+    <string name="title_1">Working Dog</string>
+    <string name="artist_and_year_1">%1$s (%2$d)</string>
+    <string name="artist_1">Loaf</string>
+    <string name="year_1">2022</string>
+    <string name="image_description_1">Loaf with headphones</string>
+    <string name="title_2">Mexican</string>
+    <string name="artist_and_year_2">%1$s (%2$d)</string>
+    <string name="artist_2">Ernesto</string>
+    <string name="year_2">2012</string>
+    <string name="image_description_2">Ernesto Gonzalez</string>
+    <string name="title_3">Detective Pug</string>
+    <string name="artist_and_year_3">%1$s (%2$d)</string>
+    <string name="artist_3">Puglock Holmes</string>
+    <string name="year_3">2023</string>
+    <string name="image_description_3">Detective pug with hat and pipe</string>
 </resources>

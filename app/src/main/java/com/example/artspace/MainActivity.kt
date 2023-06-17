@@ -96,8 +96,8 @@ fun InfoRow(modifier: Modifier = Modifier) {
         ) {
             // TODO: https://developer.android.com/jetpack/compose/resources
             // embed multiple string resources
-            Text(text = stringResource(R.string.title))
-            Text(text = stringResource(R.string.artist_and_year, "Loaf", 2023))
+            Text(text = stringResource(R.string.title_1))
+            Text(text = stringResource(R.string.artist_and_year_1, "Loaf", 2023))
 //            Text(text = stringResource(R.string.artist))
 //            Text(text =  stringResource(R.string.year))
         }
@@ -106,8 +106,8 @@ fun InfoRow(modifier: Modifier = Modifier) {
 
 @Composable
 fun ImageRow(modifier: Modifier = Modifier) {
-    var image = painterResource(R.drawable.icon)
-    var contentDescription = stringResource(R.string.image_description)
+    var image = painterResource(R.drawable.image_1)
+    var contentDescription = stringResource(R.string.image_description_1)
     Surface(
         modifier = Modifier
             .background(color=Color.Transparent)
