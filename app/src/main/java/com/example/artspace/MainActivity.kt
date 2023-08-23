@@ -85,21 +85,21 @@ fun ButtonRow(modifier: Modifier = Modifier) {
 fun InfoRow(modifier: Modifier = Modifier) {
     Row(
         modifier = Modifier
-            .background(color=Color(0xFFEEEAEA))
-            .fillMaxWidth()
-            .padding(8.dp)
-
+            .background(color = Color(0xFFEEEAEA))
     ) {
         Column(
             modifier = Modifier
-                .width(IntrinsicSize.Max)
+                .width(300.dp)
+                .padding(8.dp)
         ) {
-            // TODO: https://developer.android.com/jetpack/compose/resources
-            // embed multiple string resources
-            Text(text = stringResource(R.string.title_1))
-            Text(text = stringResource(R.string.artist_and_year_1, "Loaf", 2023))
-//            Text(text = stringResource(R.string.artist))
-//            Text(text =  stringResource(R.string.year))
+            Text(
+                text = stringResource(R.string.title_1),
+                style = MaterialTheme.typography.titleLarge,
+            )
+            Text(
+                text = stringResource(R.string.artist_and_year_1,  "Loaf", 2023),
+                style = MaterialTheme.typography.labelSmall,
+                )
         }
     }
 }
