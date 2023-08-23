@@ -144,6 +144,7 @@ fun Screen(modifier: Modifier = Modifier) {
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         ImageRow()
+        Spacer(modifier = Modifier.height(200.dp))
         InfoRow()
         ButtonRow()
     }
