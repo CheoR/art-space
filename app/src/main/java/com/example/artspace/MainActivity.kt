@@ -124,7 +124,7 @@ fun ImageRow(modifier: Modifier = Modifier) {
             contentDescription = contentDescription,
             contentScale = ContentScale.Fit,
             modifier = Modifier
-                .padding(8.dp)
+                .padding(24.dp)
                 .clip(RoundedCornerShape(8.dp)),
         )
     }
