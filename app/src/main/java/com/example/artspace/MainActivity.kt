@@ -1,13 +1,14 @@
 package com.example.artspace
 
+import android.media.Image
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -21,6 +22,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -85,7 +90,7 @@ fun ButtonRow(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun InfoRow(modifier: Modifier = Modifier) {
+fun InfoRow(title: String, artistAndYear: String, modifier: Modifier = Modifier) {
     Row(
         modifier = Modifier
             .background(color = Color(0xFFEEEAEA))
@@ -96,11 +101,11 @@ fun InfoRow(modifier: Modifier = Modifier) {
                 .padding(8.dp)
         ) {
             Text(
-                text = stringResource(R.string.title_1),
+                text = title,
                 style = MaterialTheme.typography.titleLarge,
             )
             Text(
-                text = stringResource(R.string.artist_and_year_1,  "Loaf", 2023),
+                text = artistAndYear,
                 style = MaterialTheme.typography.labelSmall,
                 )
         }
@@ -108,9 +113,12 @@ fun InfoRow(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun ImageRow(modifier: Modifier = Modifier) {
-    var image = painterResource(R.drawable.image_1)
-    var contentDescription = stringResource(R.string.image_description_1)
+fun ImageRow(
+    @DrawableRes image: Int,
+    contentDescription: String,
+    modifier: Modifier = Modifier
+) {
+
     Surface(
         modifier = Modifier
             .background(color = Color.Transparent)
@@ -125,7 +133,7 @@ fun ImageRow(modifier: Modifier = Modifier) {
 
         ) {
         Image(
-            painter = image,
+            painter = painterResource(image),
             contentDescription = contentDescription,
             contentScale = ContentScale.Fit,
             modifier = Modifier
@@ -136,6 +144,14 @@ fun ImageRow(modifier: Modifier = Modifier) {
 }
 @Composable
 fun Screen(modifier: Modifier = Modifier) {
+    // TODO: include set() to not allow negative numbers
+    var amountInput by remember { mutableStateOf("") }
+    var currentStep by remember { mutableStateOf(4) }
+    var title by remember { mutableStateOf("") }
+    var artistAndYear by remember { mutableStateOf("") }
+    var contentDescription by remember { mutableStateOf("") }
+    var image by remember { mutableStateOf(R.drawable.image_1) }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -143,9 +159,40 @@ fun Screen(modifier: Modifier = Modifier) {
         verticalArrangement = Arrangement.SpaceEvenly,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        ImageRow()
+        when(currentStep % 3) {
+            1 -> {
+                image = R.drawable.image_1
+                title = stringResource(R.string.title_1)
+                contentDescription = stringResource(R.string.image_description_1)
+                artistAndYear = stringResource(R.string.artist_and_year_1,  "Loaf", 2023)
+            }
+            2 -> {
+                image = R.drawable.image_2
+                title = stringResource(R.string.title_2)
+                contentDescription = stringResource(R.string.image_description_2)
+                artistAndYear = stringResource(R.string.artist_and_year_2,  "Ernesto", 1996)
+            }
+            0 -> {
+                image = R.drawable.image_3
+                title = stringResource(R.string.title_3)
+                contentDescription = stringResource(R.string.image_description_3)
+                artistAndYear = stringResource(R.string.artist_and_year_3,  "Grumpy Pug", 2022)
+            }
+
+            else -> {
+                image = R.drawable.image_1
+                title = stringResource(R.string.title_1)
+                contentDescription = stringResource(R.string.image_description_1)
+                artistAndYear = stringResource(R.string.artist_and_year_1,  "Loaf", 2023)
+            }
+        }
+
+        ImageRow(
+            image = image,
+            contentDescription = contentDescription,
+        )
         Spacer(modifier = Modifier.height(200.dp))
-        InfoRow()
+        InfoRow(title = title, artistAndYear = artistAndYear)
         ButtonRow()
     }
 }
