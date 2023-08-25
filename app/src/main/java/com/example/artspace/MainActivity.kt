@@ -35,7 +35,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.artspace.ui.theme.ArtSpaceTheme
-import kotlin.math.abs
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -128,16 +127,15 @@ fun ImageRow(
 
     Surface(
         modifier = Modifier
+            .height(400.dp)
+            .width(400.dp)
             .background(color = Color.Transparent)
             .padding(24.dp)
             .clip(RoundedCornerShape(8.dp)),
-//            .fillMaxWidth()
-//            .height(300.dp)
 //            .clip(RoundedCornerShape(8.dp)),
         color = Color.Transparent,
-        shadowElevation = 4.dp,
+        shadowElevation = 2.dp,
         tonalElevation = 4.dp,
-
         ) {
         Image(
             painter = painterResource(image),
@@ -152,7 +150,7 @@ fun ImageRow(
 @Composable
 fun Screen(modifier: Modifier = Modifier) {
     // TODO: include set() to not allow negative numbers
-    var currentStep by remember { mutableStateOf(4) }
+    var currentStep by remember { mutableStateOf(1) }
     var title by remember { mutableStateOf("") }
     var artistAndYear by remember { mutableStateOf("") }
     var contentDescription by remember { mutableStateOf("") }
@@ -196,7 +194,7 @@ fun Screen(modifier: Modifier = Modifier) {
             image = image,
             contentDescription = contentDescription,
         )
-        Spacer(modifier = Modifier.height(200.dp))
+        Spacer(modifier = Modifier.height(100.dp))
         InfoRow(title = title, artistAndYear = artistAndYear)
         ButtonRow(
             increaseStep = { currentStep++ },
