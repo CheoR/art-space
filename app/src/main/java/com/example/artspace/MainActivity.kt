@@ -1,6 +1,7 @@
 package com.example.artspace
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.DrawableRes
@@ -34,6 +35,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.artspace.data.Datasource
+import com.example.artspace.model.ArtPiece
 import com.example.artspace.ui.theme.ArtSpaceTheme
 
 class MainActivity : ComponentActivity() {
@@ -134,8 +137,8 @@ fun ImageRow(
             .clip(RoundedCornerShape(8.dp)),
 //            .clip(RoundedCornerShape(8.dp)),
         color = Color.Transparent,
-        shadowElevation = 2.dp,
-        tonalElevation = 4.dp,
+        shadowElevation = 4.dp,
+        tonalElevation = 8.dp,
         ) {
         Image(
             painter = painterResource(image),
@@ -152,9 +155,13 @@ fun Screen(modifier: Modifier = Modifier) {
     // TODO: include set() to not allow negative numbers
     var currentStep by remember { mutableStateOf(1) }
     var title by remember { mutableStateOf("") }
+//    var title by remember { mutableStateOf(0) }
     var artistAndYear by remember { mutableStateOf("") }
+//    var artistAndYear by remember { mutableStateOf(0) }
     var contentDescription by remember { mutableStateOf("") }
+//    var contentDescription by remember { mutableStateOf(0) }
     var image by remember { mutableStateOf(R.drawable.image_1) }
+    val artPieces: List<ArtPiece> = Datasource().loadArtPieces()
 
     Column(
         modifier = Modifier
@@ -165,22 +172,22 @@ fun Screen(modifier: Modifier = Modifier) {
     ) {
         when(currentStep % 3) {
             1 -> {
-                image = R.drawable.image_1
-                title = stringResource(R.string.title_1)
-                contentDescription = stringResource(R.string.image_description_1)
-                artistAndYear = stringResource(R.string.artist_and_year_1,  "Loaf", 2023)
+                image = artPieces[0].imageResourceId // R.drawable.image_1
+                title = stringResource(artPieces[0].stringTitleId) //  (R.string.title_1)
+                contentDescription = stringResource(artPieces[0].stringContentDescriptionId) // stringResource(R.string.image_description_1)
+                artistAndYear = stringResource(artPieces[0].stringArtistAndYearId) // stringResource(R.string.artist_and_year_1,  "Loaf", 2023)
             }
             2 -> {
-                image = R.drawable.image_2
-                title = stringResource(R.string.title_2)
-                contentDescription = stringResource(R.string.image_description_2)
-                artistAndYear = stringResource(R.string.artist_and_year_2,  "Ernesto", 1996)
+                image = artPieces[1].imageResourceId  // R.drawable.image_2
+                title = stringResource(artPieces[1].stringTitleId) // stringResource(R.string.title_2)
+                contentDescription = stringResource(artPieces[1].stringContentDescriptionId) // stringResource(R.string.image_description_2)
+                artistAndYear = stringResource(artPieces[1].stringArtistAndYearId) // stringResource(R.string.artist_and_year_2,  "Ernesto", 1996)
             }
             0 -> {
-                image = R.drawable.image_3
-                title = stringResource(R.string.title_3)
-                contentDescription = stringResource(R.string.image_description_3)
-                artistAndYear = stringResource(R.string.artist_and_year_3,  "Grumpy Pug", 2022)
+                image = artPieces[2].imageResourceId  // R.drawable.image_3
+                title = stringResource(artPieces[2].stringTitleId) // stringResource(R.string.title_3)
+                contentDescription = stringResource(artPieces[2].stringContentDescriptionId)  // stringResource(R.string.image_description_3)
+                artistAndYear = stringResource(artPieces[2].stringArtistAndYearId)  // stringResource(R.string.artist_and_year_3,  "Grumpy Pug", 2022)
             }
 
             else -> {
