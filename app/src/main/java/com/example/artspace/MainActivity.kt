@@ -1,6 +1,5 @@
 package com.example.artspace
 
-import android.media.Image
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -36,6 +35,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.artspace.ui.theme.ArtSpaceTheme
+import kotlin.math.abs
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,16 +56,19 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun ButtonRow(modifier: Modifier = Modifier) {
+fun ButtonRow(
+    increaseStep: () -> Unit,
+    decreaseStep: () -> Unit,
+    modifier: Modifier = Modifier
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-//            .background(Color.Red)
             .padding(horizontal = 24.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
     ) {
         Button(
-            onClick = { /*TODO*/ },
+            onClick = { decreaseStep() },
             modifier = Modifier
                 .width(120.dp),
             shape = RoundedCornerShape(40.dp),
@@ -76,7 +79,7 @@ fun ButtonRow(modifier: Modifier = Modifier) {
             )
         }
         Button(
-            onClick = { /*TODO*/ },
+            onClick = { increaseStep() },
             modifier = Modifier
                 .width(120.dp),
             shape = RoundedCornerShape(40.dp),
@@ -90,7 +93,11 @@ fun ButtonRow(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun InfoRow(title: String, artistAndYear: String, modifier: Modifier = Modifier) {
+fun InfoRow(
+    title: String,
+    artistAndYear: String,
+    modifier: Modifier = Modifier,
+) {
     Row(
         modifier = Modifier
             .background(color = Color(0xFFEEEAEA))
@@ -145,7 +152,6 @@ fun ImageRow(
 @Composable
 fun Screen(modifier: Modifier = Modifier) {
     // TODO: include set() to not allow negative numbers
-    var amountInput by remember { mutableStateOf("") }
     var currentStep by remember { mutableStateOf(4) }
     var title by remember { mutableStateOf("") }
     var artistAndYear by remember { mutableStateOf("") }
@@ -180,10 +186,9 @@ fun Screen(modifier: Modifier = Modifier) {
             }
 
             else -> {
-                image = R.drawable.image_1
-                title = stringResource(R.string.title_1)
-                contentDescription = stringResource(R.string.image_description_1)
-                artistAndYear = stringResource(R.string.artist_and_year_1,  "Loaf", 2023)
+                // TODO: refactor to allow rotate left any number
+                // of images
+                currentStep =  2 // abs(currentStep) % 3
             }
         }
 
@@ -193,7 +198,10 @@ fun Screen(modifier: Modifier = Modifier) {
         )
         Spacer(modifier = Modifier.height(200.dp))
         InfoRow(title = title, artistAndYear = artistAndYear)
-        ButtonRow()
+        ButtonRow(
+            increaseStep = { currentStep++ },
+            decreaseStep = { currentStep-- }
+        )
     }
 }
 
